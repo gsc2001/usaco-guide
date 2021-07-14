@@ -1,7 +1,6 @@
 import { FirebaseApp, getApp, getApps, initializeApp } from 'firebase/app';
 import { getAuth, useAuthEmulator } from 'firebase/auth';
 import { getFirestore, useFirestoreEmulator } from 'firebase/firestore';
-import { getFunctions, useFunctionsEmulator } from 'firebase/functions';
 import * as React from 'react';
 import { createContext } from 'react';
 
@@ -25,11 +24,11 @@ export const FirebaseProvider = ({ children }) => {
         getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
       setFirebaseApp(firebaseApp);
 
-      const shouldUseEmulator = false;
+      const shouldUseEmulator = true;
       if (shouldUseEmulator) {
         useAuthEmulator(getAuth(firebaseApp), 'http://localhost:9099');
         useFirestoreEmulator(getFirestore(firebaseApp), 'localhost', 8080);
-        useFunctionsEmulator(getFunctions(firebaseApp), 'localhost', 5001);
+        //        useFunctionsEmulator(getFunctions(firebaseApp), 'localhost', 5001);
       }
     }
   }, []);
